@@ -251,7 +251,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     resultTitle.style.color = score >= 7 ? '#00ffaa' : '#ff5555';
                 }
                 if (resultScore) resultScore.textContent = 'Score: ' + score + '/10';
-                if (resultMessage) resultMessage.textContent = passed ? 'You escaped successfully! your next hint is' : 'You got trapped... Try again!';
+                if (resultMessage) resultMessage.textContent = passed ? 'You escaped successfully! your next hint is Seek the chamber named after the pioneer who shaped Indias digital core and IS students dont work here,but this is where they must crack their puzzle ' : 'You got trapped... Try again!';
             } catch (error) {
                 console.error('Error updating result screen:', error);
             }
