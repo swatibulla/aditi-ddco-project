@@ -1,0 +1,267 @@
+/* Horror Theme Styling */
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="100%" width="100%"><rect width="100%" height="100%" fill="%230a0a0a"/><path d="M0 0 Q 50 50, 100 0" stroke="%23222222" stroke-width="2" fill="none" opacity="0.3" transform="scale(5,5)" /></svg>');
+    background-size: cover;
+}
+
+header {
+    background-color: rgba(45, 0, 0, 0.8);
+    color: #ffffff;
+    text-align: center;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    border-bottom: 2px solid #ff3333;
+}
+
+.container {
+    width: 90%;
+    max-width: 900px;
+    background: rgba(13, 13, 13, 0.9);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(255, 0, 0, 0.2), 0 0 10px rgba(255, 0, 0, 0.1);
+    padding: 30px;
+    text-align: center;
+    position: relative;
+    border: 1px solid rgba(255, 0, 0, 0.3);
+}
+
+.screen {
+    display: none;
+}
+
+.screen.active {
+    display: block;
+}
+
+h1 {
+    color: #ff4444;
+    font-size: 2.5em;
+    margin-bottom: 15px;
+    font-weight: 700;
+    font-family: 'Creepster', cursive;
+    text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+}
+
+h2 {
+    color: #ff4444;
+    font-size: 1.8em;
+    margin: 0;
+    font-weight: 600;
+    font-family: 'Creepster', cursive;
+    text-shadow: 0 0 3px rgba(255, 0, 0, 0.3);
+}
+
+p {
+    font-size: 1.1em;
+    margin: 15px 0;
+    line-height: 1.5;
+}
+
+ul {
+    text-align: left;
+    margin: 30px 0;
+    padding-left: 20px;
+    font-size: 1.1em;
+    line-height: 1.8;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+button {
+    background: #ff4444;
+    color: #ffffff;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1.1em;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+    margin: 10px 15px;
+    box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+}
+
+button:hover {
+    transform: scale(1.05);
+    background: #cc3333;
+}
+
+button.secondary {
+    background: #333333;
+    color: #ffffff;
+}
+
+button.secondary:hover {
+    background: #444444;
+    transform: scale(1.05);
+}
+
+button.red {
+    background: #ff6666;
+    color: #ffffff;
+}
+
+button.red:hover {
+    background: #cc4444;
+    transform: scale(1.05);
+}
+
+.separator {
+    height: 2px;
+    background: #ff4444;
+    margin: 30px 0;
+    box-shadow: 0 0 3px rgba(255, 0, 0, 0.5);
+}
+
+.bottom-bar {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    color: #888888;
+    font-size: 0.9em;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.stats {
+    font-size: 1.1em;
+    font-weight: 500;
+}
+
+#timer {
+    color: #ffcc00;
+    font-weight: 600;
+}
+
+.progress-bar {
+    height: 20px;
+    background: #181818;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 30px;
+    border: 1px solid rgba(255, 0, 0, 0.3);
+}
+
+#progress {
+    height: 100%;
+    background: #ff4444;
+    transition: width 0.5s ease;
+    box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+}
+
+.content {
+    margin: 20px 0;
+}
+
+#question {
+    font-size: 1.3em;
+    margin-bottom: 30px;
+    font-weight: 500;
+    background: #141414;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 0, 0, 0.2);
+}
+
+#answer {
+    width: 80%;
+    max-width: 400px;
+    padding: 15px;
+    font-size: 1.1em;
+    background: #222222;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    outline: none;
+    font-family: 'Poppins', sans-serif;
+}
+
+#answer:focus {
+    border: 2px solid #ff4444;
+    box-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
+}
+
+#feedback {
+    color: #ff6666;
+    font-weight: 500;
+    margin-top: 10px;
+}
+
+#hint {
+    color: #ffd700;
+    font-style: italic;
+    margin-top: 10px;
+    font-size: 1em;
+}
+
+.button-group {
+    margin-top: 20px;
+}
+
+#result-title {
+    font-size: 3em;
+}
+
+#result-score {
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+#result-message {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+#welcome-screen, #instructions-screen {
+    text-align: center;
+    padding: 20px;
+}
+
+#welcome-screen h1, #instructions-screen h1 {
+    font-size: 2.5em;
+    margin-bottom: 15px;
+}
+
+#welcome-screen p, #instructions-screen ul {
+    font-size: 1.1em;
+    margin-bottom: 25px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#instructions-screen ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: left;
+}
+
+#instructions-screen li {
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
