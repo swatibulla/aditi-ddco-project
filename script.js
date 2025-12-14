@@ -1,4 +1,3 @@
-document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM fully loaded and parsed');
     // Game state
     var score = 0;
@@ -354,4 +353,3 @@ document.addEventListener('DOMContentLoaded', function() {
     } catch (error) {
         console.error('Error in initialization:', error);
     }
-});
