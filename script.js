@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             title: "",
             question: "The Memory Twin: I allocate memory, but I do not initialize it. My sibling does both. Who are we?",
-            answer: "malloc() and calloc()","malloc and calloc"
+            answer: "malloc() and calloc()",
             hint: "These are C functions for memory allocation."
         },
         {
