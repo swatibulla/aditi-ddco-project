@@ -11,7 +11,7 @@
     <div class="container">
         <div id="welcome-screen" class="screen active">
             <h1>💀 TRAPPED IN HORROR ROOM 💀</h1>
-            <p>You are trapped in a haunted chamber. Solve 10 eerie puzzles to escape. 3 attempts each. Can you survive?</p>
+            <p>You are trapped in a haunted chamber. Solve 10 eerie puzzles to escape. 1min to unlock the hint and 2min to unlock answer. Can you survive?</p>
             <div class="separator"></div>
             <button id="start-btn" onclick="startGameFallback()">▶ BEGIN NIGHTMARE</button>
             <button id="instructions-btn" onclick="instructionsFallback()">📜 INSTRUCTIONS</button>
@@ -22,12 +22,11 @@
             <h1>📜 INSTRUCTIONS</h1>
             <ul>
                 <li>- Solve 10 terrifying puzzles to escape the horror room.</li>
-                <li>- You have 3 attempts per puzzle.</li>
-                <li>- A hint will be shown on your second attempt.</li>
+                <li>- 1min to unlock the hint.</li>
+                <li>- 2min to unlock answer.</li>
                 <li>- Score at least 5 to escape, 7 for mastery!</li>
                 <li>- Answers are case-insensitive.</li>
                 <li>- Think logically to survive!</li>
-                <li>- You have 10 minutes total to escape!</li>
             </ul>
             <button id="back-btn" onclick="backFallback()">↩ BACK</button>
         </div>
@@ -38,7 +37,6 @@
                 <div class="stats">
                     <span id="question-count">Q1/10</span> | 
                     <span id="score">Score: 0</span> | 
-                    <span id="timer">Time: 10:00</span>
                 </div>
             </div>
             <div class="progress-bar">
