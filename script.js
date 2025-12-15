@@ -4,9 +4,11 @@
     var current = 0;
     var attempts = 0;
     var maxAttempts = 3;
-    var timeLeft = 600; // 10 minutes in seconds
-    var timerRunning = false;
-    var timerInterval = null;
+    var questionTimeLeft = 0;
+    var hintRevealed = false;
+    var answerRevealed = false;
+    var questionTimerRunning = false;
+    var questionTimerInterval = null;
 
     // Questions array
     var questions = [
@@ -123,58 +125,78 @@
             }
         }
 
-        function updateTimer() {
-            if (timerRunning && timeLeft > 0) {
-                timeLeft--;
-                var minutes = Math.floor(timeLeft / 60);
-                var seconds = timeLeft % 60;
+        function updateQuestionTimer() {
+            if (questionTimerRunning && questionTimeLeft > 0) {
+                questionTimeLeft--;
+                var minutes = Math.floor(questionTimeLeft / 60);
+                var seconds = questionTimeLeft % 60;
                 try {
                     if (timerEl) timerEl.textContent = 'Time: ' + minutes + ':' + seconds.toString().padStart(2, '0');
+                    
+                    // Enable hint button after 1 minute (120 seconds left)
+                    if (questionTimeLeft === 120 && !hintRevealed) {
+                        hintRevealed = true;
+                        if (hintBtn) {
+                            hintBtn.disabled = false;
+                            hintBtn.style.opacity = '1';
+                            hintBtn.style.cursor = 'pointer';
+                        }
+                    }
+                    
+                    // Display answer after 2 more minutes (60 seconds left)
+                    if (questionTimeLeft === 60 && !answerRevealed) {
+                        answerRevealed = true;
+                        var correctAnswer = questions[current].answer.toUpperCase();
+                        if (feedbackEl) {
+                            feedbackEl.textContent = ' Answer: ' + correctAnswer;
+                            feedbackEl.style.color = '#ff6666';
+                        }
+                    }
                 } catch (error) {
-                    console.error('Error updating timer:', error);
-                }
-            } else if (timeLeft <= 0) {
-                timerRunning = false;
-                try {
-                    if (timerEl) timerEl.textContent = 'Time: 0:00';
-                    if (timerEl) timerEl.style.color = '#ff0000';
-                    clearInterval(timerInterval);
-                    alert("Time's up! You couldn't escape in 10 minutes.");
-                    showScreen('result-screen');
-                } catch (error) {
-                    console.error('Error handling timer end:', error);
+                    console.error('Error updating question timer:', error);
                 }
             }
         }
 
-        function startTimer() {
+        function startQuestionTimer() {
             try {
                 // Clear any existing timer to prevent multiple intervals
-                if (timerInterval) {
-                    clearInterval(timerInterval);
+                if (questionTimerInterval) {
+                    clearInterval(questionTimerInterval);
                 }
-                timerRunning = true;
-                timerInterval = setInterval(updateTimer, 1000); // Ensure normal speed (1000ms = 1 second)
-                console.log('Timer started');
+                questionTimeLeft = 180; // 3 minutes for each question
+                hintRevealed = false;
+                answerRevealed = false;
+                questionTimerRunning = true;
+                if (timerEl) timerEl.textContent = 'Time: 3:00';
+                if (timerEl) timerEl.style.color = '#ffcc00';
+                // Gray out hint and submit buttons initially
+                if (hintBtn) {
+                    hintBtn.disabled = true;
+                    hintBtn.style.opacity = '0.5';
+                    hintBtn.style.cursor = 'not-allowed';
+                }
+                questionTimerInterval = setInterval(updateQuestionTimer, 1000); // Ensure normal speed (1000ms = 1 second)
+                console.log('Question timer started');
             } catch (error) {
-                console.error('Error starting timer:', error);
+                console.error('Error starting question timer:', error);
             }
         }
 
-        function stopTimer() {
+        function stopQuestionTimer() {
             try {
-                timerRunning = false;
-                clearInterval(timerInterval);
-                console.log('Timer stopped');
+                questionTimerRunning = false;
+                clearInterval(questionTimerInterval);
+                console.log('Question timer stopped');
             } catch (error) {
-                console.error('Error stopping timer:', error);
+                console.error('Error stopping question timer:', error);
             }
         }
 
         function showQuestion() {
             try {
                 if (current >= questions.length) {
-                    stopTimer();
+                    stopQuestionTimer();
                     showScreen('result-screen');
                     updateResultScreen();
                     return;
@@ -189,6 +211,7 @@
                 if (feedbackEl) feedbackEl.textContent = '';
                 if (hintEl) hintEl.textContent = '';
                 if (answerInput) answerInput.focus();
+                startQuestionTimer();
                 console.log('Showing question', current + 1);
             } catch (error) {
                 console.error('Error showing question:', error);
@@ -199,7 +222,6 @@
             try {
                 var userAnswer = answerInput ? answerInput.value.trim().toLowerCase() : '';
                 var correctAnswer = questions[current].answer.toLowerCase();
-                var hint = questions[current].hint;
 
                 if (userAnswer === correctAnswer) {
                     if (feedbackEl) {
@@ -209,22 +231,9 @@
                     score++;
                     setTimeout(nextQuestion, 1000);
                 } else {
-                    attempts++;
-                    var remaining = maxAttempts - attempts;
-                    if (remaining > 0) {
-                        if (feedbackEl) {
-                            feedbackEl.textContent = ' Wrong! Attempts left: ' + remaining;
-                            feedbackEl.style.color = '#ff6666';
-                        }
-                        if (attempts === 2 && hintEl) {
-                            hintEl.textContent = ' Hint: ' + hint;
-                        }
-                    } else {
-                        if (feedbackEl) {
-                            feedbackEl.textContent = ' Out of attempts! Answer: ' + correctAnswer.toUpperCase();
-                            feedbackEl.style.color = '#ff6666';
-                        }
-                        setTimeout(nextQuestion, 1500);
+                    if (feedbackEl) {
+                        feedbackEl.textContent = ' Wrong! Try again.';
+                        feedbackEl.style.color = '#ff6666';
                     }
                 }
             } catch (error) {
@@ -235,7 +244,6 @@
         function nextQuestion() {
             try {
                 current++;
-                attempts = 0;
                 showQuestion();
             } catch (error) {
                 console.error('Error moving to next question:', error);
@@ -262,11 +270,6 @@
                 console.log('Starting game');
                 score = 0;
                 current = 0;
-                attempts = 0;
-                timeLeft = 600;
-                if (timerEl) timerEl.textContent = 'Time: 10:00';
-                if (timerEl) timerEl.style.color = '#ffcc00';
-                startTimer();
                 showScreen('game-screen');
                 showQuestion();
             } catch (error) {
@@ -341,8 +344,9 @@
 
         function showHintEarly() {
             try {
-                if (attempts < 2 && hintEl && hintEl.textContent === '') {
+                if (hintRevealed && hintEl && hintEl.textContent === '') {
                     hintEl.textContent = ' Hint: ' + questions[current].hint;
+                    hintEl.style.color = '#ffcc00';
                 } else if (hintEl && hintEl.textContent !== '') {
                     hintEl.textContent = '';
                 }
